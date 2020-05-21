@@ -1,9 +1,9 @@
-# Project Template
+# Babel Plugin Docs
 
-Make sure to update this with the right documentation!
+A collection of babel tooling for collecting documentation from source code of
+components and hooks.
 
 ### Tools:
 
-- Typescript
 - Babel
 - Jest
