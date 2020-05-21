@@ -14,7 +14,7 @@ module.exports = function (api) {
     ],
     ignore:
       process.env.NODE_ENV !== 'test'
-        ? ['src/test.js', 'src/__fixtures__/**/*.js']
+        ? ['src/*.test.js', 'src/__fixtures__/**/*.js']
         : [],
   }
 }
