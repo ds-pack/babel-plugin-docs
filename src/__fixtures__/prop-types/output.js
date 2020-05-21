@@ -1,9 +1,9 @@
 // Usage:
 // <Foo bar="blah" />
 export default function Foo() {
-  return <div />
+  return <div />;
 }
-let test
+let test;
 Foo.propTypes = {
   // some comment here
   bar: PropTypes.string.isRequired,
@@ -17,9 +17,9 @@ Foo.propTypes = {
    * With multiple lines
    */
   test,
-}
+};
 Foo.defaultProps = {
   bar: 'foo',
   foo: false,
   test: 'anotherTest',
-}
+};
