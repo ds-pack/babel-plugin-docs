@@ -1,1 +1,1 @@
-export const foo = 'bar'
+export { plugin } from './plugin'

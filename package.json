@@ -1,7 +1,7 @@
 {
   "name": "@ds-pack/babel-plugin-docs",
   "version": "0.0.0",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "repository": "git@github.com:ds-pack/babel-plugin-docs.git",
   "author": "Matt Hamlin <matthewjameshamlin@gmail.com>",
   "license": "MIT",
@@ -12,10 +12,23 @@
     "pub": "yarn prepub && yarn npm publish --access public"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "babel-jest": "^26.0.1",
+    "babel-plugin-tester": "^9.1.0",
     "jest": "^26.0.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "@babel/generator": "^7.9.6",
+    "@matthamlin/jsdoc-comment-parser": "^1.0.0"
   }
 }
