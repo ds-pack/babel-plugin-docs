@@ -1217,13 +1217,22 @@ __metadata:
     "@babel/preset-env": ^7.9.6
     "@babel/preset-react": ^7.9.4
     "@babel/runtime": ^7.9.6
-    "@matthamlin/jsdoc-comment-parser": ^1.0.0
+    "@ds-pack/jsdoc-parser": ^1.0.2
     babel-jest: ^26.0.1
     babel-plugin-syntax-jsx: ^6.18.0
     babel-plugin-tester: ^9.1.0
     jest: ^26.0.1
+  peerDependencies:
+    "@babel/runtime": ^7.9.6
   languageName: unknown
   linkType: soft
+
+"@ds-pack/jsdoc-parser@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@ds-pack/jsdoc-parser@npm:1.0.2"
+  checksum: 3/e8582597ae551930d57604a39c9acd11c5477cd170187cd4b9684131dea17ad90fb2fee96bded3f8bf2feb1dfb256b9d6ba509139d8b65039da7cffb75ea4e95
+  languageName: node
+  linkType: hard
 
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.0.0
@@ -1431,13 +1440,6 @@ __metadata:
     "@types/yargs": ^15.0.0
     chalk: ^4.0.0
   checksum: 3/50f40cece96f298ec0da9d94d9099e3c837403b63b3132f085eee47d0f627c07d4418ee60828a3ef3a5fd15b741dd390078d089f5a65161c0378d4876ce27935
-  languageName: node
-  linkType: hard
-
-"@matthamlin/jsdoc-comment-parser@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@matthamlin/jsdoc-comment-parser@npm:1.0.0"
-  checksum: 3/8f043de9a1b21c9f371f2570a823e43177302b359b8d11659ced09de87b59f017ef4dc3ab19292fab8c827a16cb80bd8ad457712294f6fd75cd6c85cc1e0a967
   languageName: node
   linkType: hard
 

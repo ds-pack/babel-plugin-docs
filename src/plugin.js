@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import generate from '@babel/generator'
-import defaultJSDocCommentParser from '@matthamlin/jsdoc-comment-parser'
+import defaultJSDocCommentParser from '@ds-pack/jsdoc-parser'
 
 function defaultFormatComments(comments) {
   return comments

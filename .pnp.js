@@ -58,8 +58,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:7.9.6"
       ],
       [
-        "@matthamlin/jsdoc-comment-parser",
-        "npm:1.0.0"
+        "@ds-pack/jsdoc-parser",
+        "npm:1.0.2"
       ],
       [
         "babel-jest",
@@ -92,7 +92,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:7.9.6"],
             ["@babel/preset-react", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:7.9.4"],
             ["@babel/runtime", "npm:7.9.6"],
-            ["@matthamlin/jsdoc-comment-parser", "npm:1.0.0"],
+            ["@ds-pack/jsdoc-parser", "npm:1.0.2"],
             ["babel-jest", "virtual:0975d94dee9ff79a18bada017469f037204c9b3564a1ecea9f0b0ed843f047fea139f0fb17afacefab3ae165c22666d09b4a19e31c5471b4e6eeae0f593875b5#npm:26.0.1"],
             ["babel-plugin-syntax-jsx", "npm:6.18.0"],
             ["babel-plugin-tester", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:9.1.0"],
@@ -1535,13 +1535,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:7.9.6"],
             ["@babel/preset-react", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:7.9.4"],
             ["@babel/runtime", "npm:7.9.6"],
-            ["@matthamlin/jsdoc-comment-parser", "npm:1.0.0"],
+            ["@ds-pack/jsdoc-parser", "npm:1.0.2"],
             ["babel-jest", "virtual:0975d94dee9ff79a18bada017469f037204c9b3564a1ecea9f0b0ed843f047fea139f0fb17afacefab3ae165c22666d09b4a19e31c5471b4e6eeae0f593875b5#npm:26.0.1"],
             ["babel-plugin-syntax-jsx", "npm:6.18.0"],
             ["babel-plugin-tester", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:9.1.0"],
             ["jest", "npm:26.0.1"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["@ds-pack/jsdoc-parser", [
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/@ds-pack-jsdoc-parser-npm-1.0.2-589d4ca9ab-3.zip/node_modules/@ds-pack/jsdoc-parser/",
+          "packageDependencies": [
+            ["@ds-pack/jsdoc-parser", "npm:1.0.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@istanbuljs/load-nyc-config", [
@@ -1760,15 +1769,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/istanbul-reports", "npm:1.1.2"],
             ["@types/yargs", "npm:15.0.5"],
             ["chalk", "npm:4.0.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["@matthamlin/jsdoc-comment-parser", [
-        ["npm:1.0.0", {
-          "packageLocation": "./.yarn/cache/@matthamlin-jsdoc-comment-parser-npm-1.0.0-403fd50581-3.zip/node_modules/@matthamlin/jsdoc-comment-parser/",
-          "packageDependencies": [
-            ["@matthamlin/jsdoc-comment-parser", "npm:1.0.0"]
           ],
           "linkType": "HARD",
         }]
