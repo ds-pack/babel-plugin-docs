@@ -12,5 +12,9 @@ module.exports = function (api) {
       ],
       '@babel/preset-react',
     ],
+    ignore:
+      process.env.NODE_ENV !== 'test'
+        ? ['src/test.js', 'src/__fixtures__/**/*.js']
+        : [],
   }
 }

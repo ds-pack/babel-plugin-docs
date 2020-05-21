@@ -1,8 +1,8 @@
-import propType from './external-types'; // Usage:
+import propType from './external-types' // Usage:
 // <Foo bar="blah" />
 
 export default function Foo() {
-  return <div />;
+  return <div />
 }
 Foo.propTypes = {
   // some comment here
@@ -17,9 +17,9 @@ Foo.propTypes = {
    * With multiple lines
    */
   test: propType,
-};
+}
 Foo.defaultProps = {
   bar: 'foo',
   foo: false,
   test: 'anotherTest',
-};
+}

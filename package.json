@@ -2,6 +2,9 @@
   "name": "@ds-pack/babel-plugin-docs",
   "version": "0.0.0",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": "git@github.com:ds-pack/babel-plugin-docs.git",
   "author": "Matt Hamlin <matthewjameshamlin@gmail.com>",
   "license": "MIT",
@@ -9,6 +12,7 @@
     "build": "babel src/ --out-dir dist",
     "test": "jest",
     "test-watch": "jest --watch",
+    "format": "prettier --write src/",
     "pub": "yarn build && yarn npm publish --access public"
   },
   "devDependencies": {
@@ -37,6 +41,7 @@
   "dependencies": {
     "@babel/generator": "^7.9.6",
     "@ds-pack/jsdoc-parser": "^1.0.2",
-    "babel-plugin-syntax-jsx": "^6.18.0"
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "prettier": "^2.0.5"
   }
 }

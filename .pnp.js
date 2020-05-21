@@ -76,6 +76,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [
         "jest",
         "npm:26.0.1"
+      ],
+      [
+        "prettier",
+        "npm:2.0.5"
       ]
     ],
     "locationBlacklistData": [
@@ -96,7 +100,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:0975d94dee9ff79a18bada017469f037204c9b3564a1ecea9f0b0ed843f047fea139f0fb17afacefab3ae165c22666d09b4a19e31c5471b4e6eeae0f593875b5#npm:26.0.1"],
             ["babel-plugin-syntax-jsx", "npm:6.18.0"],
             ["babel-plugin-tester", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:9.1.0"],
-            ["jest", "npm:26.0.1"]
+            ["jest", "npm:26.0.1"],
+            ["prettier", "npm:2.0.5"]
           ],
           "linkType": "SOFT",
         }]
@@ -1539,7 +1544,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:0975d94dee9ff79a18bada017469f037204c9b3564a1ecea9f0b0ed843f047fea139f0fb17afacefab3ae165c22666d09b4a19e31c5471b4e6eeae0f593875b5#npm:26.0.1"],
             ["babel-plugin-syntax-jsx", "npm:6.18.0"],
             ["babel-plugin-tester", "virtual:17aa0003a214ea1ac1ebc754167e398b94dace7c82ca9bb4b69a923c132b4ac02cd06b3f5b3c166d55d6ead5cc48d717764a378a607a74ef100625ae4706bd6d#npm:9.1.0"],
-            ["jest", "npm:26.0.1"]
+            ["jest", "npm:26.0.1"],
+            ["prettier", "npm:2.0.5"]
           ],
           "linkType": "SOFT",
         }]

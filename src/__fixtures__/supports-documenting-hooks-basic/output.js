@@ -10,5 +10,5 @@
  * @returns {number} The current value
  */
 export default function useFoo() {
-  return [];
+  return []
 }

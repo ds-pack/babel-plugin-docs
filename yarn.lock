@@ -1222,6 +1222,7 @@ __metadata:
     babel-plugin-syntax-jsx: ^6.18.0
     babel-plugin-tester: ^9.1.0
     jest: ^26.0.1
+    prettier: ^2.0.5
   peerDependencies:
     "@babel/runtime": ^7.9.6
   languageName: unknown
@@ -4920,7 +4921,7 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.0.1":
+"prettier@npm:^2.0.1, prettier@npm:^2.0.5":
   version: 2.0.5
   resolution: "prettier@npm:2.0.5"
   bin:
