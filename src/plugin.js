@@ -211,11 +211,12 @@ export function plugin({ types: t }) {
             }
             // Foo.propTypes = { bar: value }
             if (t.isIdentifier(prop.value)) {
-              propObj = lookupLocalOrImportedReferences({
-                prop: prop.value,
-                imports: this.data.imports,
-                propObj,
-              })
+              // @TODO
+              // lookupLocalOrImportedReferences({
+              //   prop: prop.value,
+              //   imports: this.data.imports,
+              //   propObj,
+              // })
             } else if (t.isMemberExpression(prop.value)) {
               // Foo.propTypes = {bar: PropTypes.value }
               let propType = prop.value.object.name
