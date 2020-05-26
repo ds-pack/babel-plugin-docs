@@ -34,7 +34,45 @@ function isReactSuperClass({
 // We probably don't need this if we just collect the raw import declarations
 let namespaceImportSigil = {}
 
-function lookupImportedReferences({ prop, propObj, imports }) {
+/* 
+
+
+TODOS:
+---
+
+@TODO this needs to handle self-defined isolated types
+
+e.g.
+```
+const someType = something;
+
+Foo.propTypes = { bar: someType };
+```
+
+*/
+function lookupLocalOrImportedReferences({
+  // If this prop is an identifier
+  // e.g. `Foo.propTypes = { bar: someType }`
+  // Then the `prop` value here will be that `someType` identifier,
+  // looking like: { name: string }
+  // If this props is an object expression
+  // e.g. `Foo.propTypes = { bar: PropTypes.string }`
+  // Then the `prop` value here will be that `PropTypes.string` MemberExpression
+  // Looking like: { object: {name: 'PropTypes'}, property: {name: 'string'} }
+  prop,
+  // The data we are collecting from the prop-type
+  // we will be updating this value
+  propObj,
+  // An array of objects representing all the values that were imported
+  // [{
+  //   specifiers: [{
+  //      type: 'default' | 'named',
+  //      value: string
+  //    }],
+  //    source: string
+  //  }]
+  imports,
+}) {
   console.log(imports)
   let foundReference = imports.find((importObject) => {
     return importObject.specifiers.find((importSpecifier) => {
@@ -173,7 +211,7 @@ export function plugin({ types: t }) {
             }
             // Foo.propTypes = { bar: value }
             if (t.isIdentifier(prop.value)) {
-              lookupImportedReferences({
+              propObj = lookupLocalOrImportedReferences({
                 prop: prop.value,
                 imports: this.data.imports,
                 propObj,
