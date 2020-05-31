@@ -1,5 +1,5 @@
 import pluginTester from 'babel-plugin-tester'
-import { plugin } from './plugin.js'
+import { plugin } from './index.js'
 import path from 'path'
 
 pluginTester({
