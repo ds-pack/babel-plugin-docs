@@ -79,6 +79,8 @@ export function docsPlugin({ types }) {
       propTypesNamedImports: [],
       // imported specifier for the default/namespace prop-types import
       propTypesImport: '',
+      // imported specifier for the default React import
+      // e.g. import rEaCt from 'react' => rEaCt
       reactDefaultImport: '',
     },
   }
