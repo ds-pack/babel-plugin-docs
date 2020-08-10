@@ -16,3 +16,4 @@ jobs:
           stale-pr-message: "This PR is stale. Add another comment if this PR is still actionable."
           stale-issue-label: "🕸 Stale"
           stale-pr-label: "🕸 Stale"
+          exempt-issue-labels: "🗺 Planned"
