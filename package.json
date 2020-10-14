@@ -13,7 +13,7 @@
     "test": "jest",
     "test-watch": "jest --watch",
     "format": "prettier --write src/",
-    "pub": "yarn build && yarn npm publish --access public"
+    "pub": "yarn build && yarn publish --access public"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
