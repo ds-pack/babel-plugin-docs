@@ -21,7 +21,7 @@ npm install -D @ds-pack/babel-plugin-docs
 Within your babel config, add the following:
 
 ```js
-plugins: ['@ds-pack/babel-plugin-docs']
+plugins: ['@ds-pack/babel-plugin-docs/plugin']
 ```
 
 ### Tools:

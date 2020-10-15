@@ -1,6 +1,6 @@
 module.exports = {
   "initialRawCode": "/**\n * useFoo\n *\n * Example Usage:\n * ```jsx\n * const val = useFoo(initialState);\n * ```\n *\n * @param {number} initialState The initial state of the useFoo hook\n * @returns {number} The current value\n */\nexport default function useFoo() {\n  return []\n}\n",
-  "filename": "/Users/matt/dev/babel-plugin-docs/src/__fixtures__/supports-documenting-hooks-basic/code.js",
+  "filename": "<project-root>/__fixtures__/supports-documenting-hooks-basic/code.js",
   "components": [],
   "imports": [],
   "hooks": [

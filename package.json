@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "plugin.js"
   ],
   "repository": "git@github.com:ds-pack/babel-plugin-docs.git",
   "author": "Matt Hamlin <matthewjameshamlin@gmail.com>",
