@@ -1,6 +1,6 @@
 module.exports = {
   "initialRawCode": "import propType from './external-types'\n\n// Usage:\n// <Foo bar=\"blah\" />\nexport default function Foo() {\n  return <div />\n}\n\nFoo.propTypes = {\n  // some comment here\n  bar: PropTypes.string.isRequired,\n  // another comment here\n  // multi-line this time\n  foo: PropTypes.bool,\n  /**\n   * Block comment here\n   *\n   * With multiple lines\n   */\n  test: propType,\n}\n\nFoo.defaultProps = {\n  bar: 'foo',\n  foo: false,\n  test: 'anotherTest',\n}\n",
-  "filename": "/Users/matt/dev/babel-plugin-docs/src/__fixtures__/external-prop-types/code.js",
+  "filename": "<project-root>/__fixtures__/external-prop-types/code.js",
   "components": [
     {
       "name": "Foo",

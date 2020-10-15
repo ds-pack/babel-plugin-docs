@@ -1,6 +1,6 @@
 module.exports = {
   "initialRawCode": "// Usage:\n// <Foo bar=\"blah\" />\nexport default function makeFoo(Comp) {\n  function Foo(props) {\n    return <div />\n  }\n\n  let test\n\n  Foo.propTypes = {\n    // some comment here\n    bar: PropTypes.string.isRequired,\n    // another comment here\n    // multi-line this time\n    foo: PropTypes.bool,\n    /**\n     * Block comment here\n     *\n     * With multiple lines\n     */\n    test,\n  }\n\n  Foo.defaultProps = {\n    bar: 'foo',\n    foo: false,\n    test: 'anotherTest',\n  }\n\n  return Foo\n}\n",
-  "filename": "/Users/matt/dev/babel-plugin-docs/src/__fixtures__/supports-documenting-hocs-function/code.js",
+  "filename": "<project-root>/__fixtures__/supports-documenting-hocs-function/code.js",
   "components": [
     {
       "name": "Foo",

@@ -67,7 +67,7 @@ function lookupLocalOrImportedReferences({
   }
 }
 
-export function docsPlugin({ types }) {
+export default function docsPlugin({ types }) {
   let data = {
     initialRawCode: '',
     filename: '',
@@ -89,7 +89,8 @@ export function docsPlugin({ types }) {
     inherits: require('babel-plugin-syntax-jsx'),
     pre(state) {
       data.initialRawCode = state.code
-      data.filename = state.opts.filename
+      let directoryName = state.opts.dirname || __dirname;
+      data.filename = state.opts.filename.replace(directoryName, '<project-root>')
     },
     visitor: {
       ImportDeclaration: createImportDeclaration({ types, data }),
