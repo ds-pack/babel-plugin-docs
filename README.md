@@ -21,7 +21,20 @@ npm install -D @ds-pack/babel-plugin-docs
 Within your babel config, add the following:
 
 ```js
-plugins: ['@ds-pack/babel-plugin-docs/plugin']
+plugins: [
+  [
+    '@ds-pack/babel-plugin-docs/plugin',
+    {
+      // optional, defaults to `'dist'`
+      // Will be joined with the `cwd` using `path.join`
+      outputDirectory: 'dist',
+      // optional, defaults to false
+      // If true, the metadata file won't be written to the filesystem
+      // if false, the metadata file will be written to `<outputDirectory>/<filename>.metadata.js`
+      skipWriteFile: false,
+    }
+  ]
+]
 ```
 
 ### Tools:
