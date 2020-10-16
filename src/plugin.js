@@ -103,7 +103,6 @@ export default function docsPlugin({ types }) {
       if (state.opts.skipWriteFile) {
         return
       }
-      let dir = path.dirname(state.opts.filename)
       let filename = path.basename(state.opts.filename).split('.')[0]
       let { __internal, ...rest } = data
       fs.writeFileSync(
