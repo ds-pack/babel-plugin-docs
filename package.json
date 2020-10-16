@@ -1,6 +1,6 @@
 {
   "name": "@ds-pack/babel-plugin-docs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "files": [
     "dist",
@@ -11,6 +11,7 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src/ --out-dir dist",
+    "watch": "babel src/ --out-dir dist --watch",
     "test": "jest",
     "test-watch": "jest --watch",
     "format": "prettier --write src/",

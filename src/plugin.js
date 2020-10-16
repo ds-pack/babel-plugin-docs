@@ -89,8 +89,9 @@ export default function docsPlugin({ types }) {
     inherits: require('babel-plugin-syntax-jsx'),
     pre(state) {
       data.initialRawCode = state.code
-      let directoryName = state.opts.dirname || __dirname;
+      let directoryName = state.opts.cwd;
       data.filename = state.opts.filename.replace(directoryName, '<project-root>')
+      data.__internal.outputDirectory = path.join(state.opts.cwd, state.opts.outputDirectory || 'dist')
     },
     visitor: {
       ImportDeclaration: createImportDeclaration({ types, data }),
@@ -106,7 +107,7 @@ export default function docsPlugin({ types }) {
       let filename = path.basename(state.opts.filename).split('.')[0]
       let { __internal, ...rest } = data
       fs.writeFileSync(
-        path.join(dir, `${filename}.metadata.js`),
+        path.join(__internal.outputDirectory, `${filename}.metadata.js`),
         `module.exports = ${JSON.stringify(rest, null, 2)}`,
       )
     },
