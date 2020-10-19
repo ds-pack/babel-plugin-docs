@@ -12,12 +12,23 @@ Component.propTypes = {
   // Some comment here
   foo: PropTypes.bool
 }
+Component.defaultProps = {
+  // Default comment
+  foo: 'bar'
+}
 ```
 */
 export function createAssignmentExpression({ types: t, data }) {
   return function AssignmentExpression(path, state) {
     let didEncounterProps = false
-    // Foo
+    // Not all AssignmentExpressions are MemberExpressions
+    // e.g. height = '100%' is an AssignmentExpression, but the left hand side isn't
+    // a MemberExpression, in these cases we want to bail early
+    if (!t.isMemberExpression(path.node.left)) {
+      return;
+    }
+    // path.node.left === "Component.propTypes" or path.node.left === "Component.defaultProps"
+    // Component
     let componentName = path.node.left.object.name
     // Setup the data we will return
     let component = data.components.find((comp) => comp.name === componentName)

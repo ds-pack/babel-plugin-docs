@@ -67,7 +67,17 @@ function lookupLocalOrImportedReferences({
   }
 }
 
-export default function docsPlugin({ types }) {
+let defaultOptions = {
+  outputDirectory: 'dist',
+  sourceDirectory: 'src',
+  outputPostfix: 'metadata',
+}
+
+export default function docsPlugin({ types }, opts) {
+  let options = {
+    ...defaultOptions,
+    ...opts,
+  }
   let data = {
     initialRawCode: '',
     filename: '',
@@ -87,11 +97,14 @@ export default function docsPlugin({ types }) {
   return {
     name: 'babel-plugin-docs',
     inherits: require('babel-plugin-syntax-jsx'),
-    pre(state) {
-      data.initialRawCode = state.code
-      let directoryName = state.opts.cwd;
-      data.filename = state.opts.filename.replace(directoryName, '<project-root>')
-      data.__internal.outputDirectory = path.join(state.opts.cwd, state.opts.outputDirectory || 'dist')
+    pre(config) {
+      data.initialRawCode = config.code
+      let pathToProject = config.opts.cwd + path.sep + options.sourceDirectory
+      data.filename = config.opts.filename.replace(
+        pathToProject,
+        '<project-root>',
+      )
+      data.__internal.sourcePath = pathToProject
     },
     visitor: {
       ImportDeclaration: createImportDeclaration({ types, data }),
@@ -99,14 +112,26 @@ export default function docsPlugin({ types }) {
       ClassDeclaration: createClassDeclaration({ types, data }),
       FunctionDeclaration: createFunctionDeclaration({ types, data }),
     },
-    post(state) {
-      if (state.opts.skipWriteFile) {
+    post(config) {
+      if (options.skipWriteFile) {
         return
       }
-      let filename = path.basename(state.opts.filename).split('.')[0]
       let { __internal, ...rest } = data
+      let filename = config.opts.filename.split('.')[0]
+      let targetFilename =
+        filename.replace(options.sourceDirectory, options.outputDirectory) +
+        `.${options.outputPostfix}.js`
+
+      // If we attempted to write the output to dist,
+      // it's possible that the path to this file hasn't been created by babel yet
+      // So first we check for the file path existing
+      // and if it doesn't exist, we create the path to that file and attempt the write
+      // In all other cases we let the error trickle up
+      if (!fs.existsSync(path.dirname(targetFilename))) {
+        fs.mkdirSync(path.dirname(targetFilename), { recursive: true })
+      }
       fs.writeFileSync(
-        path.join(__internal.outputDirectory, `${filename}.metadata.js`),
+        targetFilename,
         `module.exports = ${JSON.stringify(rest, null, 2)}`,
       )
     },

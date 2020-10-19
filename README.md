@@ -25,15 +25,23 @@ plugins: [
   [
     '@ds-pack/babel-plugin-docs/plugin',
     {
+      // optional, defaults to `'src'`
+      // Where the source code exists for the library within the project
+      sourceDirectory: 'src',
       // optional, defaults to `'dist'`
-      // Will be joined with the `cwd` using `path.join`
+      // Where babel will generally output the compiled files to
       outputDirectory: 'dist',
       // optional, defaults to false
       // If true, the metadata file won't be written to the filesystem
       // if false, the metadata file will be written to `<outputDirectory>/<filename>.metadata.js`
       skipWriteFile: false,
-    }
-  ]
+      // optional, defualts to `'metadata'`
+      // Will be the postfix on the generated file (if skipWriteFile is false)
+      // e.g. if your filename is `AvatarButton.js` the output will be
+      // `AvatarButton.metadata.js`
+      outputPostfix: 'metadata',
+    },
+  ],
 ]
 ```
 
