@@ -122,11 +122,11 @@ export default function docsPlugin({ types }, opts) {
         filename.replace(options.sourceDirectory, options.outputDirectory) +
         `.${options.outputPostfix}.js`
 
-      // If we write the output to dist, it's possible that the path to this file
-      // hasn't been created by babel yet
-      // So we wrap this in a try..catch, that lets us check for the file path existing
-      // and if it doesn't exist, we create the path to that file and attempt the write again
-      // In all other cases we either let the error trickle up
+      // If we attempted to write the output to dist,
+      // it's possible that the path to this file hasn't been created by babel yet
+      // So first we check for the file path existing
+      // and if it doesn't exist, we create the path to that file and attempt the write
+      // In all other cases we let the error trickle up
       if (!fs.existsSync(path.dirname(targetFilename))) {
         fs.mkdirSync(path.dirname(targetFilename), { recursive: true })
       }
