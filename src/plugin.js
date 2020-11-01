@@ -60,6 +60,11 @@ export default function docsPlugin({ types }, opts) {
       }
     },
     visitor: {
+      // TODO - This is buggy, we pass a version of `config` to the function here
+      // but we're eagerly passing it, meaning `pre` hasn't run yet
+      // so things like `data` and `config` aren't fully defined yet
+      // hence all the `data.X || []` within the other helpers
+      // I think we need to inline these functions, or assign on `this` 🤔
       ImportDeclaration: createImportDeclaration({ types, data, config }),
       AssignmentExpression: createAssignmentExpression({ types, data, config }),
       ClassDeclaration: createClassDeclaration({ types, data, config }),
