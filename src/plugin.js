@@ -6,67 +6,6 @@ import { createAssignmentExpression } from './visitors/AssignmentExpression'
 import { createClassDeclaration } from './visitors/ClassDeclaration'
 import { createFunctionDeclaration } from './visitors/FunctionDeclaration'
 
-/* 
-
-
-TODOS:
----
-
-@TODO this needs to handle self-defined isolated types
-
-e.g.
-```
-const someType = something;
-
-Foo.propTypes = { bar: someType };
-```
-
-@TODO this needs to handle imported types
-
-e.g.
-```
-import someType from './somewhere'
-
-Foo.propTypes = { bar: someType }
-```
-
-*/
-function lookupLocalOrImportedReferences({
-  // If this prop is an identifier
-  // e.g. `Foo.propTypes = { bar: someType }`
-  // Then the `prop` value here will be that `someType` identifier,
-  // looking like: { name: 'someType' }
-  // If this prop is an object expression
-  // e.g. `Foo.propTypes = { bar: PropTypes.string }`
-  // Then the `prop` value here will be that `PropTypes.string` MemberExpression
-  // Looking like: { object: {name: 'PropTypes'}, property: {name: 'string'} }
-  prop,
-  // An array of objects representing all the values that were imported
-  // [{
-  //   specifiers: [{
-  //      type: 'default' | 'named',
-  //      value: string
-  //    }],
-  //    source: string
-  //  }]
-  imports,
-}) {
-  console.log(imports)
-  let foundReference = imports.find((importObject) => {
-    return importObject.specifiers.find((importSpecifier) => {
-      // imported -> value exported from other file
-      // local -> local reference to that value
-      if (importSpecifier.value.local === prop.name) {
-        return true
-      }
-    })
-  })
-  if (foundReference) {
-    // time to go look at that file
-    // Need to track down the specifier that it matched
-  }
-}
-
 let defaultOptions = {
   outputDirectory: 'dist',
   sourceDirectory: 'src',
@@ -94,23 +33,37 @@ export default function docsPlugin({ types }, opts) {
       reactDefaultImport: '',
     },
   }
+  let config = {
+    parserOptions: {
+      sourceType: 'module',
+    },
+  }
   return {
     name: 'babel-plugin-docs',
     inherits: require('babel-plugin-syntax-jsx'),
-    pre(config) {
-      data.initialRawCode = config.code
-      let pathToProject = config.opts.cwd + path.sep + options.sourceDirectory
-      data.filename = config.opts.filename.replace(
+    pre(preConfig) {
+      data.initialRawCode = preConfig.code
+      let pathToProject =
+        preConfig.opts.cwd + path.sep + options.sourceDirectory
+      data.filename = preConfig.opts.filename.replace(
         pathToProject,
         '<project-root>',
       )
       data.__internal.sourcePath = pathToProject
+
+      // bootstrap config
+      config.cwd = path.dirname(preConfig.opts.filename)
+      config.sourceFilePath = preConfig.opts.filename
+      config.parserOptions = {
+        ...config.parserOptions,
+        ...preConfig.opts.parserOptions,
+      }
     },
     visitor: {
-      ImportDeclaration: createImportDeclaration({ types, data }),
-      AssignmentExpression: createAssignmentExpression({ types, data }),
-      ClassDeclaration: createClassDeclaration({ types, data }),
-      FunctionDeclaration: createFunctionDeclaration({ types, data }),
+      ImportDeclaration: createImportDeclaration({ types, data, config }),
+      AssignmentExpression: createAssignmentExpression({ types, data, config }),
+      ClassDeclaration: createClassDeclaration({ types, data, config }),
+      FunctionDeclaration: createFunctionDeclaration({ types, data, config }),
     },
     post(config) {
       if (options.skipWriteFile) {

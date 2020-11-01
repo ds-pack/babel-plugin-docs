@@ -1,5 +1,5 @@
 import generate from '@babel/generator'
-import { formatComments } from '../utils'
+import { formatComments, lookupLocalOrImportedReferences } from '../utils'
 
 /*
 PropType visitor
@@ -18,14 +18,14 @@ Component.defaultProps = {
 }
 ```
 */
-export function createAssignmentExpression({ types: t, data }) {
+export function createAssignmentExpression({ types: t, data, config }) {
   return function AssignmentExpression(path, state) {
     let didEncounterProps = false
     // Not all AssignmentExpressions are MemberExpressions
     // e.g. height = '100%' is an AssignmentExpression, but the left hand side isn't
     // a MemberExpression, in these cases we want to bail early
     if (!t.isMemberExpression(path.node.left)) {
-      return;
+      return
     }
     // path.node.left === "Component.propTypes" or path.node.left === "Component.defaultProps"
     // Component
@@ -61,11 +61,12 @@ export function createAssignmentExpression({ types: t, data }) {
         // Foo.propTypes = { bar: value }
         if (t.isIdentifier(prop.value)) {
           // @TODO
-          // lookupLocalOrImportedReferences({
-          //   prop: prop.value,
-          //   imports: data.imports,
-          //   propObj,
-          // })
+          lookupLocalOrImportedReferences({
+            prop: prop.value,
+            imports: data.imports,
+            propObj,
+            config,
+          })
         } else if (t.isMemberExpression(prop.value)) {
           // Foo.propTypes = {bar: PropTypes.value }
           let propType = prop.value.object.name
