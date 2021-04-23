@@ -43,7 +43,7 @@ module.exports = {
           "type": "default",
           "value": {
             "local": "React",
-            "imported": "React"
+            "original": "React"
           }
         }
       ],
@@ -55,7 +55,7 @@ module.exports = {
           "type": "default",
           "value": {
             "local": "PropTypes",
-            "imported": "PropTypes"
+            "original": "PropTypes"
           }
         }
       ],

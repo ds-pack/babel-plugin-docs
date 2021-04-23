@@ -40,6 +40,16 @@ plugins: [
       // e.g. if your filename is `AvatarButton.js` the output will be
       // `AvatarButton.metadata.js`
       outputPostfix: 'metadata',
+      // optional, defaults to `'react'`
+      // the package from which React/Component/built-in hooks are imported
+      // e.g. if you use `preact`, change this to `'preact'`
+      reactSource: 'react',
+      // optional, defaults to `'Component'`
+      // This is used to determine if a class extends `React.Component`
+      reactComponentValue: 'Component',
+      // optional, defaults to `'prop-types'`
+      // This is the source package for prop-types imports
+      propTypesSource: 'prop-types'
     },
   ],
 ]

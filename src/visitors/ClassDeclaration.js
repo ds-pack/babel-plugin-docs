@@ -30,9 +30,9 @@ class Foo extends React.Component {
 }
 ```
 */
-export function createClassDeclaration({ types: t, data }) {
+export function createClassDeclaration({ types: t }) {
   return function ClassDeclaration(path, state) {
-    let { reactComponentImport, reactDefaultImport } = data.__internal
+    let { reactComponentImport, reactDefaultImport } = this.data.__internal
     if (
       path.node.superClass &&
       isReactSuperClass({
@@ -65,7 +65,7 @@ export function createClassDeclaration({ types: t, data }) {
       // Foo
       let componentName = path.node.id.name
       // Setup the data we will return
-      let component = data.components.find(
+      let component = this.data.components.find(
         (comp) => comp.name === componentName,
       )
       if (!component) {
@@ -167,8 +167,8 @@ export function createClassDeclaration({ types: t, data }) {
 
       if (didEncounterProps) {
         component.props = propData
-        if (data.components.find((comp) => comp.name === componentName)) {
-          data.components = data.components.map((comp) => {
+        if (this.data.components.find((comp) => comp.name === componentName)) {
+          this.data.components = this.data.components.map((comp) => {
             if (comp.name === componentName) {
               return {
                 ...comp,
@@ -195,7 +195,7 @@ export function createClassDeclaration({ types: t, data }) {
             return comp
           })
         } else {
-          data.components = [component]
+          this.data.components = [component]
         }
       }
     }

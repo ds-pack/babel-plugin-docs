@@ -25,7 +25,7 @@ module.exports = {
           "type": "default",
           "value": {
             "local": "React",
-            "imported": "React"
+            "original": "React"
           }
         }
       ],

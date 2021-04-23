@@ -73,51 +73,79 @@ let defaultOptions = {
   outputPostfix: 'metadata',
 }
 
+let initialData = {
+  initialRawCode: '',
+  filename: '',
+  components: [],
+  imports: [],
+  hooks: [],
+  __internal: {
+    // Array of named imports from prop-types package
+    propTypesNamedImports: [],
+    // imported specifier for the default/namespace prop-types import
+    propTypesImport: '',
+    // imported specifier for the default React import
+    // e.g. import rEaCt from 'react' => rEaCt
+    reactDefaultImport: '',
+  },
+}
+
 export default function docsPlugin({ types }, opts) {
   let options = {
     ...defaultOptions,
     ...opts,
   }
-  let data = {
-    initialRawCode: '',
-    filename: '',
-    components: [],
-    imports: [],
-    hooks: [],
-    __internal: {
-      // Array of named imports from prop-types package
-      propTypesNamedImports: [],
-      // imported specifier for the default/namespace prop-types import
-      propTypesImport: '',
-      // imported specifier for the default React import
-      // e.g. import rEaCt from 'react' => rEaCt
-      reactDefaultImport: '',
-    },
-  }
   return {
     name: 'babel-plugin-docs',
     inherits: require('babel-plugin-syntax-jsx'),
     pre(config) {
-      data.initialRawCode = config.code
       let pathToProject = config.opts.cwd + path.sep + options.sourceDirectory
-      data.filename = config.opts.filename.replace(
-        pathToProject,
-        '<project-root>',
-      )
-      data.__internal.sourcePath = pathToProject
+      this.data = {
+        initialRawCode: config.code,
+        filename: config.opts.filename.replace(pathToProject, '<project-root>'),
+        components: [],
+        imports: [],
+        hooks: [],
+        __internal: {
+          // Array of named imports from prop-types package
+          propTypesNamedImports: [],
+          // imported specifier for the default/namespace prop-types import
+          propTypesImport: '',
+          // imported specifier for the default React import
+          // e.g. import rEaCt from 'react' => rEaCt
+          reactDefaultImport: '',
+          sourcePath: pathToProject,
+        },
+      }
     },
     visitor: {
-      ImportDeclaration: createImportDeclaration({ types, data }),
-      AssignmentExpression: createAssignmentExpression({ types, data }),
-      ClassDeclaration: createClassDeclaration({ types, data }),
-      FunctionDeclaration: createFunctionDeclaration({ types, data }),
+      // Program(path, state) {
+      //   path.traverse.call(
+      //     this,
+      //     {
+      //       // This is a hack for us to run these steps prior to other plugins ideally
+      //       // See: https://jamie.build/babel-plugin-ordering.html
+      //       ImportDeclaration: createImportDeclaration({ types }),
+      //       AssignmentExpression: createAssignmentExpression({ types }),
+      //       ClassDeclaration: createClassDeclaration({ types }),
+      //       FunctionDeclaration: createFunctionDeclaration({ types }),
+      //     },
+      //     state,
+      //   )
+      // },
+      ImportDeclaration: createImportDeclaration({ types }),
+      AssignmentExpression: createAssignmentExpression({ types }),
+      ClassDeclaration: createClassDeclaration({ types }),
+      FunctionDeclaration: createFunctionDeclaration({ types }),
     },
     post(config) {
       if (options.skipWriteFile) {
         return
       }
-      let { __internal, ...rest } = data
-      let filename = config.opts.filename.split('.')[0]
+      let { __internal, ...rest } = this.data
+      let filename = config.opts.filename
+      let extension = path.extname(filename)
+      filename = filename.replace(extension, '')
       let targetFilename =
         filename.replace(options.sourceDirectory, options.outputDirectory) +
         `.${options.outputPostfix}.js`
@@ -134,6 +162,7 @@ export default function docsPlugin({ types }, opts) {
         targetFilename,
         `module.exports = ${JSON.stringify(rest, null, 2)}`,
       )
+      this.data = {}
     },
   }
 }

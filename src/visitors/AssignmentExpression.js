@@ -18,29 +18,37 @@ Component.defaultProps = {
 }
 ```
 */
-export function createAssignmentExpression({ types: t, data }) {
+export function createAssignmentExpression({ types: t }) {
   return function AssignmentExpression(path, state) {
     let didEncounterProps = false
     // Not all AssignmentExpressions are MemberExpressions
     // e.g. height = '100%' is an AssignmentExpression, but the left hand side isn't
     // a MemberExpression, in these cases we want to bail early
+    //
+    // @TODO - Do we want to truly bail early here? What if we have code like:
+    // ```js
+    // const propTypes = { ... };
+    // Component.propTypes = propTypes;
+    // ```
     if (!t.isMemberExpression(path.node.left)) {
-      return;
+      return
     }
     // path.node.left === "Component.propTypes" or path.node.left === "Component.defaultProps"
     // Component
     let componentName = path.node.left.object.name
     // Setup the data we will return
-    let component = data.components.find((comp) => comp.name === componentName)
+    let component = this.data.components.find(
+      (comp) => comp.name === componentName,
+    )
     if (!component) {
       component = {
         name: componentName,
+        props: [],
       }
     }
     let propData = component.props || []
     if (
       // Foo.propTypes
-      t.isMemberExpression(path.node.left) &&
       path.node.left.property.name === 'propTypes'
     ) {
       didEncounterProps = true
@@ -50,7 +58,15 @@ export function createAssignmentExpression({ types: t, data }) {
       props.forEach((prop) => {
         // grab the prop name
         // @TODO test for expressions here: {[foo]: PropTypes.string}
-        let propName = prop.key.name
+        let propName
+        // Foo.defaultProps = { ...something }
+        if (t.isSpreadElement(prop)) {
+          propName = generate(prop).code
+        } else if (t.isObjectProperty(prop)) {
+          // grab the prop name
+          // @TODO test for expressions here: {[foo]: PropTypes.string}
+          propName = prop.key.name
+        }
         let propObj = {
           name: propName,
           type: {},
@@ -63,7 +79,7 @@ export function createAssignmentExpression({ types: t, data }) {
           // @TODO
           // lookupLocalOrImportedReferences({
           //   prop: prop.value,
-          //   imports: data.imports,
+          //   imports: this.data.imports,
           //   propObj,
           // })
         } else if (t.isMemberExpression(prop.value)) {
@@ -105,9 +121,15 @@ export function createAssignmentExpression({ types: t, data }) {
       // @TODO assumes an object expression definition
       let defaultProps = path.node.right.properties
       defaultProps.forEach((prop) => {
-        // grab the prop name
-        // @TODO test for expressions here: {[foo]: PropTypes.string}
-        let propName = prop.key.name
+        let propName
+        // Foo.defaultProps = { ...something }
+        if (t.isSpreadElement(prop)) {
+          propName = generate(prop).code
+        } else if (t.isObjectProperty(prop)) {
+          // grab the prop name
+          // @TODO test for expressions here: {[foo]: PropTypes.string}
+          propName = prop.key.name
+        }
         let propObj = {
           name: propName,
           default: {},
@@ -147,8 +169,8 @@ export function createAssignmentExpression({ types: t, data }) {
 
     if (didEncounterProps) {
       component.props = propData
-      if (data.components.find((comp) => comp.name === componentName)) {
-        data.components = data.components.map((comp) => {
+      if (this.data.components.find((comp) => comp.name === componentName)) {
+        this.data.components = this.data.components.map((comp) => {
           if (comp.name === componentName) {
             return {
               ...comp,
@@ -172,7 +194,7 @@ export function createAssignmentExpression({ types: t, data }) {
           return comp
         })
       } else {
-        data.components = [component]
+        this.data.components = [component]
       }
     }
   }

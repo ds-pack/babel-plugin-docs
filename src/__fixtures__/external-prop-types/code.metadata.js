@@ -44,7 +44,7 @@ module.exports = {
           "type": "default",
           "value": {
             "local": "propType",
-            "imported": "propType"
+            "original": "propType"
           }
         }
       ],

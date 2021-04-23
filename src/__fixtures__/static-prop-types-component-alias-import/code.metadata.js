@@ -25,7 +25,7 @@ module.exports = {
           "type": "named",
           "value": {
             "local": "Comp",
-            "imported": "Component"
+            "original": "Component"
           }
         }
       ],
